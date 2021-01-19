@@ -1,0 +1,84 @@
+/* Color variables */
+:root {
+  --stratos: #001b48;
+  --morning-glory: #97cadb;
+  --white: #ffffffe7;
+}
+
+/* Tool menu */
+#toolbox {
+  margin-bottom: 0.5em;
+  margin-left: 1em;
+  border-radius: 5px;
+  padding: 1em;
+  background-color: transparent;
+  position: absolute;
+}
+
+#toolbox input {
+  width: 2.3em;
+}
+#toolbox input:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#hidden-file-upload {
+  display: none;
+}
+
+#download-input {
+  margin: 0 0.5em;
+}
+
+#chart text {
+  font-weight: 700;
+}
+
+.conceptG text {
+  pointer-events: none;
+}
+
+marker {
+  fill: transparent;
+}
+
+g.conceptG circle {
+  fill: var(--morning-glory);
+  stroke: hsla(0, 0%, 100%, 0.325);
+  stroke-width: 3px;
+}
+
+g.conceptG:hover circle,
+g.selected circle,
+g.conceptG text {
+  fill: var(--stratos);
+}
+
+g.selected text,
+.weight-label,
+g.conceptG:hover text {
+  fill: var(--white);
+}
+
+g.selected:hover circle,
+g.connect-node circle {
+  fill: var(--morning-glory);
+}
+
+path.link {
+  fill: none;
+  stroke: hsla(0, 0%, 100%, 0.325);
+  stroke-width: 6px;
+  cursor: default;
+}
+
+path.link:hover,
+path.selected {
+  stroke: var(--white);
+  opacity: 0.85;
+}
+
+path.link.hidden {
+  stroke-width: 0;
+}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Icon navigator -->
+    <link rel="shortcut icon" href="./src/img/graph.png" type="image/png" />
+    <!-- Stylesheet CSS -->
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/graphCreator.css" />
+    <!-- Drawing Graph -->
+    <script src="../public/src/functions/graphCreate.js"></script>
+    <!-- Tittle -->
+    <title>Algoritmo de Kruskal</title>
+  </head>
+  <body>
+    <!-- Navbar image -->
+    <div class="navbar-image">
+      <div class="navbar_image--icon">
+        <img src="./src/img/graph.png" alt="" />
+      </div>
+      <div class="navbar_image--tittle">
+        <p>Algoritmo de Kruskal</p>
+      </div>
+    </div>
+    <!-- ./Navbar image -->
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Step Menu Container -->
+      <div class="steps-menu">
+        <!-- Tabs Menu -->
+        <div class="tab">
+          <!-- ALgorithm Button -->
+          <button
+            class="tablinks firts"
+            onclick="openOption(event, 'Algoritmo')"
+            id="defaultOpen"
+          >
+            Algoritmo
+          </button>
+          <!-- Demonstration Button -->
+          <button
+            class="tablinks middle"
+            onclick="openOption(event, 'Demostración')"
+          >
+            Demostración
+          </button>
+          <!-- Input Button -->
+          <button
+            class="tablinks middle"
+            onclick="openOption(event, 'Entrada')"
+          >
+            Entrada
+          </button>
+          <!-- Tutorial Button -->
+          <button class="tablinks end" onclick="openOption(event, 'Manual')">
+            Manual
+          </button>
+        </div>
+        <!-- ./Tabs Menu -->
+
+        <!-- Tabs Content -->
+        <div class="tab-content">
+          <!-- Algorithm steps -->
+          <div id="Algoritmo" class="tabcontent">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+              at, corrupti quae perspiciatis optio porro error vel, molestiae in
+              aliquam sit neque vitae quasi ratione! Perferendis ipsam odio
+              quibusdam quisquam!
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+              at, corrupti quae perspiciatis optio porro error vel, molestiae in
+              aliquam sit neque vitae quasi ratione! Perferendis ipsam odio
+              quibusdam quisquam!
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+              at, corrupti quae perspiciatis optio porro error vel, molestiae in
+              aliquam sit neque vitae quasi ratione! Perferendis ipsam odio
+              quibusdam quisquam!
+            </p>
+          </div>
+          <!-- Demonstration Steps -->
+          <div id="Demostración" class="tabcontent">
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Consequatur dicta vel voluptates vero quae id veniam expedita,
+              ullam optio deserunt commodi iste neque quo. Nobis sequi
+              reprehenderit saepe dolore mollitia?
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Consequatur dicta vel voluptates vero quae id veniam expedita,
+              ullam optio deserunt commodi iste neque quo. Nobis sequi
+              reprehenderit saepe dolore mollitia?
+            </p>
+          </div>
+          <!-- Input text -->
+          <div id="Entrada" class="tabcontent">
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Consequatur dicta vel voluptates vero quae id veniam expedita,
+              ullam optio deserunt commodi iste neque quo. Nobis sequi
+              reprehenderit saepe dolore mollitia?
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Consequatur dicta vel voluptates vero quae id veniam expedita,
+              ullam optio deserunt commodi iste neque quo. Nobis sequi
+              reprehenderit saepe dolore mollitia?
+            </p>
+          </div>
+          <!-- Tutorial Steps -->
+          <div id="Manual" class="tabcontent">
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi
+              porro neque quas animi cupiditate nesciunt velit magni, ut ea illo
+              quae perferendis libero pariatur, id distinctio. Hic aliquid quod
+              magni?
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- ./Steps Container -->
+
+      <!-- Graph Section -->
+      <div class="graph-section">
+        <!-- Graph Visualizer -->
+        <div class="graph-section__visualizer" id="chart">
+          <div id="toolbox">
+            <input type="file" id="hidden-file-upload" /><input
+              id="upload-input"
+              type="image"
+              title="Subir grafo"
+              src="./src/img/icon/cloud-download.svg"
+              alt="Subir grafo"
+            />
+            <input
+              type="image"
+              id="download-input"
+              title="Descargar grafo"
+              src="./src/img/icon/box-arrow-in-down.svg"
+              alt="Descargar grafo"
+            />
+            <input
+              type="image"
+              id="delete-graph"
+              title="Eliminar grafo"
+              src="./src/img/icon/trash.svg"
+              alt="Eliminar grafo"
+            />
+          </div>
+        </div>
+        <!-- Graph Menu -->
+        <div class="graph-section__menu">
+          <!-- Menu Player -->
+          <div class="graph-section__menu--player">
+            <!-- Icon: Back all -->
+            <span>
+              <svg
+                fill="#d6e8ee"
+                class="bi bi-arrow-left-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+                />
+              </svg>
+            </span>
+            <!-- Icon: Back one -->
+            <span>
+              <svg
+                fill="#d6e8ee"
+                class="bi bi-arrow-left-circle"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+                />
+              </svg>
+            </span>
+            <!-- Icon: Play -->
+            <span>
+              <svg
+                fill="#d6e8ee"
+                class="bi bi-play-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"
+                />
+              </svg>
+            </span>
+            <!-- Icon: Next one -->
+            <span>
+              <svg
+                fill="#d6e8ee"
+                class="bi bi-arrow-right-circle"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
+                />
+              </svg>
+            </span>
+            <!-- Icon: Next all -->
+            <span>
+              <svg
+                fill="#d6e8ee"
+                class="bi bi-arrow-right-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
+                />
+              </svg>
+            </span>
+          </div>
+          <!-- ./Menu Player -->
+        </div>
+        <!-- ./Graph Menu -->
+      </div>
+      <!-- ./Graph Section -->
+    </div>
+    <!-- ./Main Container -->
+
+    <!-- Drawing Graph -->
+    <script src="../public/src/functions/d3.min.js"></script>
+    <script src="../public/src/functions/graphCreate.js"></script>
+    <!-- Active & Move Tabs -->
+    <script>
+      function openOption(evt, algoritmoTab) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(algoritmoTab).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+      document.getElementById("defaultOpen").click();
+    </script>
+  </body>
+</html>
