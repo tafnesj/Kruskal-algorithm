@@ -1,3 +1,56 @@
+/* Import fonts */
+@font-face {
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/quicksand/v21/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkM0o58i-wi40.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/quicksand/v21/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkM0o58a-wg.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../src/fonts/6xKtdSZaM9iE8KbpRA_hJVQNcOM.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../src/fonts/6xKtdSZaM9iE8KbpRA_hK1QN.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/* Color variables */
+:root {
+  --stratos: #001b48;
+  --regal-blue: #02457a;
+  --bondi-blue: #018abe;
+  --morning-glory: #97cadb;
+  --botticelli: #d6e8ee;
+  --white: #ffffffe7;
+  --black: #000000;
+}
+
 /* Algorithm content */
 .algorithm-container,
 .tutorial-container {
@@ -6,17 +59,11 @@
   max-width: 100%;
   max-width: 100%;
   text-align: center;
-  color:white;
+  color: white;
 }
 .algorithm-content,
 .tutorial-content {
   position: relative;
-}
-
-/* Slides */
-.slides,
-.slides_2 {
-  display: none;
 }
 
 /* Button slides */
@@ -33,7 +80,7 @@
 }
 .slide_left:hover,
 .slide_right:hover {
-  color: #018abe;
+  color: var(--bondi-blue);
   opacity: 0.8;
 }
 
@@ -68,4 +115,124 @@
 .hover-white:hover {
   color: transparent;
   background-color: white;
+}
+
+/* Slides */
+.slides,
+.slides_2 {
+  display: none;
+}
+
+/* Form: Plain text */
+.form-container {
+  background-color: var(--white);
+  border-radius: 0.5em;
+  min-width: 90%;
+  padding: 0.5em 5%;
+}
+.form-container h3 {
+  color: var(--stratos);
+}
+.form-container button {
+  width: 95%;
+  padding: 0.8em 3.5em;
+  margin: 1em;
+  background-color: var(--stratos);
+  color: white;
+  border-radius: 0.5em;
+  border: 0;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+}
+.form-container button:hover {
+  transition: 0.8s;
+  background-color: #02447ae8;
+}
+.form-container textarea {
+  resize: none;
+  margin: 0.25em 0;
+  width: 98%;
+  font-size: 0.9em;
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 0.6em;
+  outline: none;
+  padding: 1%;
+}
+
+/* Tutorial & Algorithm */
+.slides,
+.slides_2 {
+  background-color: var(--white);
+  border-radius: 0.5em;
+  min-width: 96%;
+  padding: 0.5em 1em 0 0;
+  text-align: justify;
+  max-height: 390px;
+  min-height: 390px;
+}
+
+hr {
+  border-top: 1.5px solid var(--stratos);
+  margin: -0.5em 0.5em -0.2em 1.3em;
+}
+
+b {
+  font-weight: 700;
+}
+
+li {
+  padding: 0 0.5em;
+}
+
+/* Tutorial & Algorithm Slides */
+.slides p,
+.slides_2 p,
+.slides span {
+  color: var(--stratos);
+}
+.slides_2 h3,
+.slides h3,
+.slides p b,
+.slides_2 p b {
+  color: var(--regal-blue);
+}
+.slides h3,
+.slides_2 h3 {
+  text-align: center;
+}
+.slides b,
+.slides ul li,
+.slides_2 b,
+.slides_2 ul li {
+  color: var(--bondi-blue);
+}
+.slides p,
+.slides_2 p {
+  margin-top: 0;
+  font-weight: 500;
+}
+
+.slides p {
+  padding: 0 0.5em 0 1.4em;
+}
+b.blue-b {
+  color: var(--regal-blue) !important;
+}
+b.blue-l {
+  color: var(--bondi-blue) !important;
+}
+.slides span {
+  font-weight: 500;
+}
+
+/* Pesudocode */
+.pseudocode-container {
+  font-size: 0.85em;
+  text-align: left;
+}
+.pseudocode-container ul {
+  padding-left: 1.3em;
+  list-style-type: none;
 }

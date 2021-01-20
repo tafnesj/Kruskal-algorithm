@@ -5,7 +5,8 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
   var GraphCreator = function (svg, nodes, edges) {
     var thisGraph = this;
     thisGraph.idct = 0;
-
+    thisGraph.parent = []
+    thisGraph.sz = []
     thisGraph.nodes = nodes || [];
     thisGraph.edges = edges || [];
 
@@ -123,8 +124,8 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     // handle download data
     d3.select("#download-input").on("click", function () {
       var saveEdges = [];
-      thisGraph.edges.forEach(function (val, i){
-        saveEdges.push({source: val.source.id, target: val.target.id,weight: val.weight });
+      thisGraph.edges.forEach(function (val, i) {
+        saveEdges.push({ source: val.source.id, target: val.target.id, weight: val.weight });
       });
       var blob = new Blob(
         [window.JSON.stringify({ nodes: thisGraph.nodes, edges: saveEdges })],
@@ -142,7 +143,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         var uploadFile = this.files[0];
         var filereader = new window.FileReader();
 
-        filereader.onload = function (){
+        filereader.onload = function () {
           var txtRes = filereader.result;
           console.log(txtRes);
           // TODO better error handling
@@ -163,7 +164,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
                 target: thisGraph.nodes.filter(function (n) {
                   return n.id == e.target;
                 })[0],
-          
+
               };
             });
             thisGraph.edges = newEdges;
@@ -187,19 +188,146 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     d3.select("#delete-graph").on("click", function () {
       thisGraph.deleteGraph(false);
     });
+
+    // handle controls
+    d3.select("#start").on("click", function () {
+      thisGraph.FunctionPlay(false);
+    });
+    d3.select("#next_step").on("click", function () {
+      thisGraph.FunctionNext(false);
+    });
+    d3.select("#back_step").on("click", function () {
+      thisGraph.FunctionPrev(false);
+    });
+  };
+
+  /*** Kruskal Functions ***/
+
+  // Search main parent: return represent
+  GraphCreator.prototype.represent = function (i) {
+    var thisGraph = this;
+    if (thisGraph.parent[i] == i) {
+      return i;
+    } else {
+      return thisGraph.parent[i] = thisGraph.represent(thisGraph.parent[i]);
+    }
+  }
+  
+  // Union nodes
+  GraphCreator.prototype.UnionBySize = function (u, v) {
+    var thisGraph = this;
+    u = thisGraph.represent(u);
+    v = thisGraph.represent(v);
+
+    if (u == v) {
+      // Can't join because they're in the same component
+      return false;
+    } else {
+      if (thisGraph.sz[u] < thisGraph.sz[v]) {
+        // "U" always are the most high value
+        [u, v] = [v, u];
+      }
+      // New represent
+      thisGraph.parent[v] = u;
+      // Change size of the component
+      thisGraph.sz[u] += thisGraph.sz[v];
+    }
+    // Can join
+    return true;
+  }
+
+
+  GraphCreator.prototype.FunctionPlay = function () {
+    var thisGraph = this;
+    thisGraph.parent = new Array(thisGraph.nodes.length);
+    thisGraph.sz = new Array(thisGraph.nodes.length);
+
+    for (let i = 0; i < thisGraph.nodes.length; i++) {
+      thisGraph.parent[i] = i;
+      thisGraph.sz[i] = 1;
+    }
+    let EdgesCopy = thisGraph.edges;
+    EdgesCopy.sort((A, B) => { return A.weight - B.weight; });
+    let i = 0;
+    let changes = []
+    let edge_final = null;
+    function myLoop() {         //  create a loop function
+      setTimeout(function() {   //  call a 3s setTimeout when the loop is called
+        console.log("Previos",changes);
+        for(let j = 0;j<changes.length;j++){
+          console.log(changes[j],changes[j].tagName);
+          if(changes[j].tagName =="circle"){
+            changes[j].classList.remove("selected_node");
+            changes[j].setAttribute("class","no-selected-node")
+            changes[j].classList.remove("node_fill");
+          }
+          else{
+            changes[j].setAttribute("class","no-selected-edges")
+            changes[j].classList.remove("selected-edge");
+          }
+        }
+        if(edge_final){
+            edge_final.classList.remove("selected-edge");
+            edge_final.setAttribute("class","final-edge");
+        }
+        changes = [];
+        let u = EdgesCopy[i].source.id;
+        let v = EdgesCopy[i].target.id;
+        let node1 = document.getElementById(EdgesCopy[i].source.id);
+        let node2 = document.getElementById(EdgesCopy[i].target.id);
+        let edge = document.getElementById(EdgesCopy[i].source.id+"to"+EdgesCopy[i].target.id);
+        changes.push(node1);
+        changes.push(node2);
+        changes.push(edge);
+        // console.log(node1);
+        // console.log(node2);
+        // console.log(edge);
+        node1.setAttribute("class","selected_node node_fill");
+        node2.setAttribute("class","selected_node node_fill");
+        edge.setAttribute("class","selected-edge");
+        
+        if(thisGraph.UnionBySize(u,v)){
+          changes.splice(changes.indexOf(edge), 1);
+          edge_final = edge;
+        }
+        i++;                    //  increment the counter
+        if (i <EdgesCopy.length) {           //  if the counter < 10, call the loop function
+          myLoop();             //  ..  again which will trigger another 
+        }     
+        else{
+          console.log(changes);
+          for(let j = 0;j<changes.length;j++){
+            console.log(changes[j],changes[j].tagName);
+            if(changes[j].tagName =="circle"){
+              changes[j].classList.remove("selected_node");
+              changes[j].setAttribute("class","no-selected-node")
+              changes[j].classList.remove("node_fill");
+            }
+            else{
+              changes[j].setAttribute("class","no-selected-edges")
+              changes[j].classList.remove("selected-edge");
+            }
+          }
+        }        
+      }, 3000)
+    }
+    myLoop();
+
+  }; 
+  GraphCreator.prototype.FunctionNext = function () {
+    this.idct = idct;
   };
 
   GraphCreator.prototype.setIdCt = function (idct) {
     this.idct = idct;
   };
-
   GraphCreator.prototype.consts = {
     selectedClass: "selected",
     connectClass: "connect-node",
     circleGClass: "conceptG",
     graphClass: "graph",
     activeEditId: "active-editing",
-    BACKSPACE_KEY: 8,
+    // BACKSPACE_KEY: 8,
     DELETE_KEY: 46,
     ENTER_KEY: 13,
     nodeRadius: 35,
@@ -207,37 +335,26 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
   /* PROTOTYPE FUNCTIONS */
 
-  GraphCreator.prototype.dragmove = function (d) {
+  GraphCreator.prototype.dragmove = function(d) {
     var thisGraph = this;
-    if (thisGraph.state.shiftNodeDrag) {
-      thisGraph.dragLine.attr(
-        "d",
-        "M" +
-        d.x +
-        "," +
-        d.y +
-        "L" +
-        d3.mouse(thisGraph.svgG.node())[0] +
-        "," +
-        d3.mouse(this.svgG.node())[1]
-      );
-    } else {
+    if (thisGraph.state.shiftNodeDrag){
+      thisGraph.dragLine.attr('d', 'M' + d.x + ',' + d.y + 'L' + d3.mouse(thisGraph.svgG.node())[0] + ',' + d3.mouse(this.svgG.node())[1]);
+    } else{
       d.x += d3.event.dx;
-      d.y += d3.event.dy;
+      d.y +=  d3.event.dy;
       thisGraph.updateGraph();
     }
   };
 
-  GraphCreator.prototype.deleteGraph = function (skipPrompt) {
+  GraphCreator.prototype.deleteGraph = function(skipPrompt){
     var thisGraph = this,
-      doDelete = true;
-    if (!skipPrompt) {
-      doDelete = window.confirm("¿Desea eliminar el grafo?");
+        doDelete = true;
+    if (!skipPrompt){
+      doDelete = window.confirm("Press OK to delete this graph");
     }
-    if (doDelete) {
+    if(doDelete){
       thisGraph.nodes = [];
       thisGraph.edges = [];
-      d3.selectAll("text").remove();
       thisGraph.updateGraph();
     }
   };
@@ -254,15 +371,15 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
   /* insert svg line breaks: taken from http://stackoverflow.com/questions/13241475/how-do-i-include-newlines-in-labels-in-d3-charts */
   GraphCreator.prototype.insertTitleLinebreaks = function (gEl, title) {
     var words = title.split(/\s+/g),
-      nwords = words.length;
-    var el = gEl
-      .append("text")
-      .attr("text-anchor", "middle")
-      .attr("dy", "-" + (nwords - 1) * 7.5);
+        nwords = words.length;
+    var el = gEl.append("text")
+          .attr("text-anchor","middle")
+          .attr("dy", "-" + (nwords-1)*7.5);
 
     for (var i = 0; i < words.length; i++) {
-      var tspan = el.append("tspan").text(words[i]);
-      if (i > 0) tspan.attr("x", 0).attr("dy", "15");
+      var tspan = el.append('tspan').text(words[i]);
+      if (i > 0)
+        tspan.attr('x', 0).attr('dy', '15');
     }
   };
 
@@ -366,8 +483,8 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
       .data([d])
       .enter()
       .append("foreignObject")
-      .attr("x", nodeBCR.left - 465)
-      .attr("y", nodeBCR.top - 135)
+      .attr("x", nodeBCR.left - 565)
+      .attr("y", nodeBCR.top - 106)
       .attr("height", 2 * useHW)
       .attr("width", useHW)
       .append("xhtml:p")
@@ -411,7 +528,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
       var newEdge = {
         source: mouseDownNode,
         target: d,
-        weight: parseInt(Math.random() * 30),
+        weight: parseInt((Math.random() * 30)+1),
       };
       var filtRes = thisGraph.paths.filter(function (d) {
         if (d.source === newEdge.target && d.target === newEdge.source) {
@@ -471,7 +588,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
       var xycoords = d3.mouse(thisGraph.svgG.node()),
         d = {
           id: thisGraph.idct++,
-          title: (""+nodes.length),
+          title: ("" + nodes.length),
           x: xycoords[0],
           y: xycoords[1],
         };
@@ -505,7 +622,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
     state.lastKeyDown = d3.event.keyCode;
     var selectedNode = state.selectedNode,
-        selectedEdge = state.selectedEdge;
+      selectedEdge = state.selectedEdge;
     switch (d3.event.keyCode) {
       case consts.BACKSPACE_KEY:
       case consts.DELETE_KEY:
@@ -515,8 +632,8 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
           thisGraph.spliceLinksForNode(selectedNode);
           state.selectedNode = null;
           thisGraph.updateGraph();
-        } else if (selectedEdge){
-          var text = document.getElementById(selectedEdge.source.id+"_"+selectedEdge.target.id);
+        } else if (selectedEdge) {
+          var text = document.getElementById(selectedEdge.source.id + "_" + selectedEdge.target.id);
           text.remove();
           thisGraph.edges.splice(thisGraph.edges.indexOf(selectedEdge), 1);
           state.selectedEdge = null;
@@ -586,8 +703,11 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     paths
       .enter()
       .append("path")
+      .classed("no-selected-edges",true)
       .style("marker-end", "url(#end-arrow)")
-      .classed("link", true)
+      .attr("id", function (d) {
+        return d.source.id + "to" + d.target.id;
+      })
       .attr("d", function (d) {
         return (
           "M" +
@@ -609,7 +729,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
     // remove old links
     paths.exit().remove();
-    
+
     // update existing nodes
     thisGraph.circles = thisGraph.circles.data(thisGraph.nodes, function (d) {
       return d.id;
@@ -626,6 +746,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       })
+
       .on("mouseover", function (d) {
         if (state.shiftNodeDrag) {
           d3.select(this).classed(consts.connectClass, true);
@@ -642,7 +763,12 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
       })
       .call(thisGraph.drag);
 
-    newGs.append("circle").attr("r", String(consts.nodeRadius));
+    newGs.append("circle")
+      .attr("r", String(consts.nodeRadius))
+      .attr("id", function (d) {
+        return d.id;
+      })
+      .classed("no-selected-nodes",true)
 
     newGs.each(function (d) {
       thisGraph.insertTitleLinebreaks(d3.select(this), d.title);

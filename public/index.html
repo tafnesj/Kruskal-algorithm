@@ -21,9 +21,9 @@
   </head>
   <body>
     <!-- Navbar image -->
-    <div class="navbar-image">
+    <div class="navbar-image curved">
       <div class="navbar_image--icon">
-        <img src="./src/img/graph.png" alt="" />
+        <img src="./src/img/graph.png" alt="Logo grafo" />
       </div>
       <div class="navbar_image--tittle">
         <p>Algoritmo de Kruskal</p>
@@ -75,21 +75,127 @@
               class="algorithm-container algorithm-content"
               style="max-width: 100%"
             >
-              <img
-                class="slides"
-                src="./src/img/graph.png"
-                style="width: 88%"
-              />
-              <img
-                class="slides"
-                src="./src/img/graph.png"
-                style="width: 88%"
-              />
-              <img
-                class="slides"
-                src="./src/img/graph.png"
-                style="width: 88%"
-              />
+              <!-- Algorithm: Teory -->
+              <div class="slides">
+                <h3>Algoritmo de Kruskal</h3>
+                <hr />
+                <p style="padding-top: 0.6em">
+                  Fue descubierto en <b>1956</b> por
+                  <b class="blue-l">Joseph Kruskal</b>, matemático y estadístico
+                  estadounidense.<br />
+                  <br />Es un algoritmo de
+                  <b class="blue-l">árbol de expansión mínimo</b>, que toma un
+                  grafo como entrada y encuentra el subconjunto de las aristas
+                  de ese grafo que:
+                </p>
+                <ul>
+                  <li>
+                    <span
+                      >Forme un árbol que incluya
+                      <b class="blue-b">todos los nodos iniciales</b>.</span
+                    >
+                  </li>
+                  <li style="margin-top: 0.5em">
+                    <span
+                      >Que tenga la <b class="blue-b">suma mínima</b> de pesos
+                      entre todos las aristas que se pueden formar a partir del
+                      gráfico.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <!-- Algorithm: Union-Find -->
+              <div class="slides">
+                <h3>Algoritmo Union Find</h3>
+                <hr />
+                <p style="padding-top: 0.6em">
+                  Kruskal hace uso de este algoritmo, ya que realiza dos
+                  importantes operaciones en una estructura de datos:
+                </p>
+                <ul>
+                  <li>
+                    Operación <b>Buscar</b><br />
+                    <span
+                      >Determina a cual subconjunto pertenece un elemento. Esta
+                      operación puede usarse para verificar si
+                      <b class="blue-b">dos elementos</b> están en el
+                      <b class="blue-b">mismo conjunto</b>.
+                    </span>
+                  </li>
+                  <li style="margin-top: 0.5em">
+                    Operación <b>Unión</b><br />
+                    <span
+                      ><b class="blue-b">Une</b> dos conjuntos en
+                      <b class="blue-b">uno solo</b>.</span
+                    >
+                  </li>
+                </ul>
+              </div>
+              <!-- Algorithm: Steps -->
+              <div class="slides">
+                <h3>Pasos</h3>
+                <hr />
+                <ul>
+                  <li>
+                    <p style="padding: 0">
+                      <b>Ordenar</b><br />
+                      Se <b class="blue-l">ordenan</b> todas las aristas, con
+                      respecto a su peso de forma
+                      <b class="blue-l">creciente</b>.
+                    </p>
+                  </li>
+                  <li>
+                    <p style="padding: 0">
+                      <b>Agregar</b><br />
+                      Se toma la <b class="blue-l">arista</b> con el
+                      <b class="blue-l">menor peso</b> y se agrega al árbol de
+                      expansión. Si al agregar la arista se crea un
+                      <b class="blue-l">ciclo</b>, prescindimos de esta.
+                    </p>
+                  </li>
+                  <li>
+                    <p style="padding: 0">
+                      <b>Repetir</b> Se siguen
+                      <b class="blue-l">agregando aristas</b> hasta que todos
+                      los vértices estén <b class="blue-l">conectados</b>.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <!-- Algorithm: Pseudocode -->
+              <div class="slides pseudocode-container">
+                <h3>Pseudocódigo</h3>
+                <hr />
+                <!-- ./Pseudocode -->
+                <ul class="pseudocode">
+                  <li><b>Algoritmo </b><span>kruskal(grafo):</span>
+                  <li>
+                    <span>conjunto_aristas=0</span>
+                    <ul>
+                    <li>
+                      <b>For each </b><span>nodo ∈ grafo.conjunto_nodos:</span>
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <b>For each </b><span>(nodo_2,nodo) en grafo.arista</span>
+                      <ul>
+                        <li><b>Ordenar </b><span>por peso(nodo_2, nodo), incremental <b>Hacer</b></span></li>
+                        <li><b>Si </b><span><b class="blue-b">Find</b>(u) ≠ <b class="blue-b">Find</b>(v) </span><b>Entonces</b></li>
+                        <ul>
+                          <li><span>conjunto_aristas:= conjunto_aristas ∪ {(nodo_2, nodo)}</span></li>
+                          <li><span><b class="blue-b">Union</b>(<b class="blue-b">Find</b>(nodo_2), <b class="blue-b">Find</b>(nodo))</span></li>
+                        </ul>
+                      </ul>
+                    </li>
+                    <li><b>return </b><span>conjunto_aristas</span></li>
+                    </ul>
+                  </li>
+                  </li>
+                </ul>
+                <!-- ./Pseudocode -->
+              </div>
+
               <!-- Middlebutton -->
               <div class="middlebutton" style="width: 100%">
                 <div class="slide_left" onclick="plusDivs(-1)">&#10094;</div>
@@ -105,6 +211,10 @@
                 <span
                   class="dots_slide point dot-transparent hover-white"
                   onclick="currentDiv(3)"
+                ></span>
+                <span
+                  class="dots_slide point dot-transparent hover-white"
+                  onclick="currentDiv(4)"
                 ></span>
               </div>
               <!-- ./Middlebutton -->
@@ -130,7 +240,23 @@
           </div>
           <!-- Input text -->
           <div id="Entrada" class="tabcontent">
-            <textarea name="" id="" cols="30" rows="10"> </textarea>
+            <!-- Plain text -->
+            <form action="">
+              <div class="form-container">
+                <h3>Texto plano</h3>
+                <textarea
+                  cols="9"
+                  rows="15"
+                  placeholder="
+                    Número_nodos  Número_aristas
+                    Nodo_origen  Nodo_destino  Peso"
+                  name="plain-text"
+                  id="plain-text"
+                ></textarea>
+                <button class="button_in" type="submit">Calcular</button>
+                <!-- ./Plain text -->
+              </div>
+            </form>
           </div>
           <!-- Tutorial Steps -->
           <div id="Manual" class="tabcontent">
@@ -139,21 +265,101 @@
               class="tutorial-container tutorial-content"
               style="max-width: 100%"
             >
-              <img
-                class="slides_2"
-                src="./src/img/graph.png"
-                style="width: 88%"
-              />
-              <img
-                class="slides_2"
-                src="./src/img/graph.png"
-                style="width: 88%"
-              />
-              <img
-                class="slides_2"
-                src="./src/img/graph.png"
-                style="width: 88%"
-              />
+              <!-- Tutorial: Selection -->
+              <div class="slides_2">
+                <h3>Selección y movimiento</h3>
+                <hr />
+                <ul>
+                  <li>
+                    <b>Seleccionar nodo/arista</b>
+                    <p>
+                      Coloque el <b>cursor</b> sobre el elemento desea y hacer
+                      <b>clic</b> en él. Cambiará de color al estar
+                      seleccionado.
+                    </p>
+                  </li>
+                  <li>
+                    <b>Mover nodo</b>
+                    <p>
+                      Seleccione el nodo y sin soltar el elemento, muévalo con
+                      el <b>cursor</b> a la posición deseada.
+                    </p>
+                  </li>
+                  <li>
+                    <b>Mover grafo</b>
+                    <p>
+                      Coloque el <b>cursor</b> en una parte libre del plano y de
+                      <b>clic</b>. Sin soltar mueva el grafo al lugar deseado.
+                    </p>
+                  </li>
+                  <li>
+                    <b>Zoom</b>
+                    <p>
+                      Para acercar o alejar el plano utilice el <b>scroll</b> de
+                      su dispositivo.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <!-- Tutorial: Draw -->
+              <div class="slides_2">
+                <h3>Dibujar grafo</h3>
+                <hr />
+                <ul>
+                  <li>
+                    <b>Agregar una nodo</b>
+                    <p>
+                      Para agregar un nuevo nodo debe dejar oprimida la tecla
+                      <b>Ctrl</b> en su teclado, seguido de esto al dar clic
+                      sobre el panel de dibujo.
+                    </p>
+                  </li>
+                  <li>
+                    <b>Agregar una arista</b>
+                    <p>
+                      Una vez que tenga 2 o más nodos, debe seleccionar el nodo
+                      que desea unir. Posteriormente manteniendo oprimida la
+                      tecla <b>Ctrl</b> diríjase hacia el segundo nodo que desea
+                      unir y suelte el cursor sobre este.
+                    </p>
+                  </li>
+                  <li>
+                    <b>Eliminar un nodo/arista</b>
+                    <p>
+                      Seleccione el nodo o arista que desea eliminar y oprima la
+                      tecla <b>Supr</b> para eliminarlo.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <!-- Tutorial: Animation player -->
+              <div class="slides_2">
+                <h3>Animación</h3>
+                <hr />
+                <ul>
+                  <li>
+                    <b>Anterior</b>
+                    <p>
+                      Nos muestre el paso anterior de la animación con respecto
+                      al paso donde encontramos.
+                    </p>
+                  </li>
+                  <li>
+                    <b>Iniciar</b>
+                    <p>
+                      Muestra todos los pasos de inicio a fin de la animación
+                      sin pausas.
+                    </p>
+                  </li>
+                  <li>
+                    <b>Siguiente</b>
+                    <p>
+                      Nos muestre el sigueinte paso de la animación con respecto
+                      al paso donde encontramos.
+                    </p>
+                  </li>
+                </ul>
+              </div>
               <!-- middlebutton_2 -->
               <div class="middlebutton" style="width: 100%">
                 <div class="slide_left" onclick="plusDivs_2(-1)">&#10094;</div>
@@ -212,17 +418,32 @@
           <!-- Menu Player -->
           <div class="graph-section__menu--player">
             <!-- Icon: Back one step -->
-            <img
-              src="./src/img/icon/arrow-left-circle.svg"
-              alt="Reinciar"
-            />
+            <div class="tooltip">
+              <img
+                src="./src/img/icon/arrow-left-circle.svg"
+                alt="Anterior"
+                id="back_step"
+              />
+              <span class="tooltip-text">Anterior</span>
+            </div>
             <!-- Icon: Start -->
-            <img src="./src/img/icon/play-circle-fill.svg" alt="Iniciar" />
+            <div class="tooltip">
+              <img
+                src="./src/img/icon/play-circle-fill.svg"
+                alt="Iniciar"
+                id="start"
+              />
+              <span class="tooltip-text">Iniciar</span>
+            </div>
             <!-- Icon: Next one step -->
-            <img
-              src="./src/img/icon/arrow-right-circle.svg"
-              alt="Finalizar"
-            />
+            <div class="tooltip">
+              <img
+                src="./src/img/icon/arrow-right-circle.svg"
+                alt="Siguiente"
+                id="next_step"
+              />
+              <span class="tooltip-text">Siguiente</span>
+            </div>
           </div>
           <!-- ./Menu Player -->
         </div>

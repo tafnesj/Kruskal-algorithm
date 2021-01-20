@@ -1,7 +1,10 @@
 /* Color variables */
 :root {
   --stratos: #001b48;
+  --regal-blue: #02457a;
+  --bondi-blue: #018abe;
   --morning-glory: #97cadb;
+  --botticelli: #d6e8ee;
   --white: #ffffffe7;
 }
 
@@ -43,42 +46,68 @@ marker {
   fill: transparent;
 }
 
-g.conceptG circle {
-  fill: var(--morning-glory);
-  stroke: hsla(0, 0%, 100%, 0.325);
-  stroke-width: 3px;
-}
-
-g.conceptG:hover circle,
-g.selected circle,
-g.conceptG text {
-  fill: var(--stratos);
-}
-
-g.selected text,
+/* General nodes/edges */
 .weight-label,
-g.conceptG:hover text {
-  fill: var(--white);
+g.conceptG text {
+  fill: white;
+}
+.selected-edge,
+.no-selected-edges,
+.final-edge {
+  cursor: pointer;
+}
+.selected-edge:hover,
+.no-selected-edges:hover,
+.final-edge:hover {
+  stroke: var(--morning-glory);
 }
 
-g.selected:hover circle,
-g.connect-node circle {
-  fill: var(--morning-glory);
-}
-
-path.link {
-  fill: none;
+/* No Selected nodes/edges */
+.no-selected-node circle,
+g.conceptG circle {
+  fill: var(--regal-blue);
+  stroke-width: 0.15em;
   stroke: hsla(0, 0%, 100%, 0.325);
-  stroke-width: 6px;
-  cursor: default;
+}
+g.selected circle,
+g.conceptG:hover circle {
+  fill: var(--bondi-blue);
+  stroke-width: 0.15em;
+  stroke: hsla(0, 0%, 100%, 0.325);
+}
+.no-selected-edges {
+  stroke-width: 0.25em;
+  stroke: hsla(0, 0%, 100%, 0.225);
 }
 
+/* Selected nodes/edfes */
+.selected_node.node_fill {
+  fill: var(--stratos);
+  stroke-width: 0.15em;
+  stroke: hsla(0, 0%, 100%, 0.325);
+}
+.selected_node.node_fill:hover {
+  fill: var(--bondi-blue);
+  stroke-width: 0.15em;
+  stroke: hsla(0, 0%, 100%, 0.325);
+}
+.selected-edge {
+  stroke-width: 0.35em;
+  stroke: hsla(197, 99%, 37%, 0.525);
+}
+
+/* Final edges */
+.final-edge {
+  stroke-width: 0.35em;
+  stroke: hsla(0, 0%, 100%, 0.825);
+  stroke: rgb(255, 230, 0);
+}
+
+/* Edges hidden */
 path.link:hover,
 path.selected {
-  stroke: var(--white);
-  opacity: 0.85;
+  stroke: var(--morning-glory);
 }
-
 path.link.hidden {
   stroke-width: 0;
 }
