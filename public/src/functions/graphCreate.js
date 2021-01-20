@@ -93,7 +93,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     var dragSvg = d3.behavior
       .zoom()
       .on("zoom", function () {
-        if (d3.event.sourceEvent.shiftKey) {
+        if (d3.event.sourceEvent.ctrlKey) {
           // TODO  the internal d3 state is still changing
           return false;
         } else {
@@ -106,7 +106,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         if (ael) {
           ael.blur();
         }
-        if (!d3.event.sourceEvent.shiftKey)
+        if (!d3.event.sourceEvent.ctrlKey)
           d3.select("body").style("cursor", "move");
       })
       .on("zoomend", function () {
@@ -123,8 +123,8 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     // handle download data
     d3.select("#download-input").on("click", function () {
       var saveEdges = [];
-      thisGraph.edges.forEach(function (val, i) {
-        saveEdges.push({ source: val.source.id, target: val.target.id });
+      thisGraph.edges.forEach(function (val, i){
+        saveEdges.push({source: val.source.id, target: val.target.id,weight: val.weight });
       });
       var blob = new Blob(
         [window.JSON.stringify({ nodes: thisGraph.nodes, edges: saveEdges })],
@@ -142,15 +142,19 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         var uploadFile = this.files[0];
         var filereader = new window.FileReader();
 
-        filereader.onload = function () {
+        filereader.onload = function (){
           var txtRes = filereader.result;
+          console.log(txtRes);
           // TODO better error handling
           try {
             var jsonObj = JSON.parse(txtRes);
+            console.log(JSON.parse('{"nodes":[{"title":"Nodo","id":0,"x":637,"y":100},{"title":"Nodo","id":1,"x":637,"y":300},{"id":2,"title":null,"x":494.375,"y":244.015625}],"edges":[{"source":1,"target":0,"weight":10},{"source":2,"target":1,"weight":28}]}'))
+            console.log(jsonObj);
             thisGraph.deleteGraph(true);
             thisGraph.nodes = jsonObj.nodes;
             thisGraph.setIdCt(jsonObj.nodes.length + 1);
             var newEdges = jsonObj.edges;
+            console.log(newEdges);
             newEdges.forEach(function (e, i) {
               newEdges[i] = {
                 source: thisGraph.nodes.filter(function (n) {
@@ -159,6 +163,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
                 target: thisGraph.nodes.filter(function (n) {
                   return n.id == e.target;
                 })[0],
+          
               };
             });
             thisGraph.edges = newEdges;
@@ -232,6 +237,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     if (doDelete) {
       thisGraph.nodes = [];
       thisGraph.edges = [];
+      d3.selectAll("text").remove();
       thisGraph.updateGraph();
     }
   };
@@ -333,8 +339,8 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
       state = thisGraph.state;
     d3.event.stopPropagation();
     state.mouseDownNode = d;
-    if (d3.event.shiftKey) {
-      state.shiftNodeDrag = d3.event.shiftKey;
+    if (d3.event.ctrlKey) {
+      state.shiftNodeDrag = d3.event.ctrlKey;
       // reposition dragged directed edge
       thisGraph.dragLine
         .classed("hidden", false)
@@ -373,7 +379,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
       })
       .on("keydown", function (d) {
         d3.event.stopPropagation();
-        if (d3.event.keyCode == consts.ENTER_KEY && !d3.event.shiftKey) {
+        if (d3.event.keyCode == consts.ENTER_KEY && !d3.event.ctrlKey) {
           this.blur();
         }
       })
@@ -424,7 +430,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         state.justDragged = false;
       } else {
         // clicked, not dragged
-        if (d3.event.shiftKey) {
+        if (d3.event.ctrlKey) {
           // shift-clicked node: edit text content
           var d3txt = thisGraph.changeTextOfNode(d3node, d);
           var txtNode = d3txt.node();
@@ -460,12 +466,12 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     if (state.justScaleTransGraph) {
       // dragged not clicked
       state.justScaleTransGraph = false;
-    } else if (state.graphMouseDown && d3.event.shiftKey) {
+    } else if (state.graphMouseDown && d3.event.ctrlKey) {
       // clicked not dragged from svg
       var xycoords = d3.mouse(thisGraph.svgG.node()),
         d = {
           id: thisGraph.idct++,
-          title: "Nodo",
+          title: (""+nodes.length),
           x: xycoords[0],
           y: xycoords[1],
         };
@@ -499,8 +505,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
     state.lastKeyDown = d3.event.keyCode;
     var selectedNode = state.selectedNode,
-      selectedEdge = state.selectedEdge;
-
+        selectedEdge = state.selectedEdge;
     switch (d3.event.keyCode) {
       case consts.BACKSPACE_KEY:
       case consts.DELETE_KEY:
@@ -510,7 +515,9 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
           thisGraph.spliceLinksForNode(selectedNode);
           state.selectedNode = null;
           thisGraph.updateGraph();
-        } else if (selectedEdge) {
+        } else if (selectedEdge){
+          var text = document.getElementById(selectedEdge.source.id+"_"+selectedEdge.target.id);
+          text.remove();
           thisGraph.edges.splice(thisGraph.edges.indexOf(selectedEdge), 1);
           state.selectedEdge = null;
           thisGraph.updateGraph();
@@ -602,7 +609,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
     // remove old links
     paths.exit().remove();
-
+    
     // update existing nodes
     thisGraph.circles = thisGraph.circles.data(thisGraph.nodes, function (d) {
       return d.id;
@@ -668,13 +675,13 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
   var width = window.innerWidth || docEl.clientWidth || bodyEl.clientWidth,
     height = window.innerHeight || docEl.clientHeight || bodyEl.clientHeight;
 
-  var xLoc = width / 2 - 25,
+  var xLoc = width / 3.5,
     yLoc = 100;
 
   // initial node data
   var nodes = [
-    { title: "Nodo", id: 0, x: xLoc, y: yLoc },
-    { title: "Nodo", id: 1, x: xLoc, y: yLoc + 200 },
+    { title: "0", id: 0, x: xLoc, y: yLoc },
+    { title: "1", id: 1, x: xLoc, y: yLoc + 200 },
   ];
   var edges = [{ source: nodes[1], target: nodes[0], weight: 10 }];
 

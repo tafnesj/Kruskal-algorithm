@@ -1,0 +1,71 @@
+/* Algorithm content */
+.algorithm-container,
+.tutorial-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  max-width: 100%;
+  text-align: center;
+  color:white;
+}
+.algorithm-content,
+.tutorial-content {
+  position: relative;
+}
+
+/* Slides */
+.slides,
+.slides_2 {
+  display: none;
+}
+
+/* Button slides */
+.slide_left,
+.slide_right,
+.dots_slide {
+  cursor: pointer;
+}
+.slide_left {
+  float: left;
+}
+.slide_right {
+  float: right;
+}
+.slide_left:hover,
+.slide_right:hover {
+  color: #018abe;
+  opacity: 0.8;
+}
+
+/* Middle Button */
+.dots_slide {
+  background-color: #000;
+  color: white;
+  display: inline-block;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+.dots_slide {
+  height: 13px;
+  width: 13px;
+  padding: 0;
+}
+
+/* Middlebutton */
+.middlebutton {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 1em;
+}
+
+/* Dots buttons */
+.dot-transparent {
+  background-color: transparent;
+}
+.dot-white {
+  background-color: white;
+}
+.hover-white:hover {
+  color: transparent;
+  background-color: white;
+}
