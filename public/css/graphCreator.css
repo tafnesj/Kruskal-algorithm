@@ -99,7 +99,7 @@ g.conceptG:hover circle {
 /* Final edges */
 .final-edge {
   stroke-width: 0.35em;
-  stroke: var(--morning-glory);
+  stroke: #0bd4c4;
   /* stroke: rgb(255, 230,  0); */
 }
 

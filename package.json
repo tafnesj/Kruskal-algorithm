@@ -20,7 +20,12 @@
   },
   "homepage": "https://github.com/tafnesj/Kruskal-algorithm#readme",
   "dependencies": {
+    "compression": "^1.7.4",
     "express": "^4.17.1",
+    "helmet": "^4.4.1",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@vercel/node": "^1.9.0"
   }
 }

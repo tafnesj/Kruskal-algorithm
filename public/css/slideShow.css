@@ -211,7 +211,7 @@ li {
 .slides_2 ul li {
   color: var(--bondi-blue);
 }
-..slides ol li {
+.slides ol li {
   font-weight: 500;
 }
 .slides p,
