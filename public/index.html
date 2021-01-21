@@ -45,10 +45,10 @@
           >
             Algoritmo
           </button>
-          <!-- Demonstration Button -->
+          <!-- total-weightnstration Button -->
           <button
             class="tablinks middle"
-            onclick="openOption(event, 'Demostración')"
+            onclick="openOption(event, 'Demostration')"
           >
             Demostración
           </button>
@@ -135,7 +135,7 @@
               <div class="slides">
                 <h3>Pasos</h3>
                 <hr />
-                <ul>
+                <ol>
                   <li>
                     <p style="padding: 0">
                       <b>Ordenar</b><br />
@@ -160,7 +160,7 @@
                       los vértices estén <b class="blue-l">conectados</b>.
                     </p>
                   </li>
-                </ul>
+                </ol>
               </div>
               <!-- Algorithm: Pseudocode -->
               <div class="slides pseudocode-container">
@@ -168,34 +168,84 @@
                 <hr />
                 <!-- ./Pseudocode -->
                 <ul class="pseudocode">
-                  <li><b>Algoritmo </b><span>kruskal(grafo):</span>
-                  <li>
-                    <span>conjunto_aristas=0</span>
-                    <ul>
-                    <li>
-                      <b>For each </b><span>nodo ∈ grafo.conjunto_nodos:</span>
-                    </li>
-                  </ul>
                   <ul>
-                    <li>
-                      <b>For each </b><span>(nodo_2,nodo) en grafo.arista</span>
+                    <li><b>Algoritmo </b><span>kruskal(grafo):</span></li>
+                    <li><span>conjunto_aristas=0</span></li>
+                    <ul>
+                      <li>
+                        <b>For each </b
+                        ><span>nodo ∈ grafo.conjunto_nodos:</span>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <b>For each </b
+                        ><span>(nodo_2,nodo) en grafo.arista</span>
+                      </li>
                       <ul>
-                        <li><b>Ordenar </b><span>por peso(nodo_2, nodo), incremental <b>Hacer</b></span></li>
-                        <li><b>Si </b><span><b class="blue-b">Find</b>(u) ≠ <b class="blue-b">Find</b>(v) </span><b>Entonces</b></li>
+                        <li>
+                          <b>Ordenar </b
+                          ><span
+                            >por peso(nodo_2, nodo), incremental
+                            <b>Hacer</b></span
+                          >
+                        </li>
+                        <li>
+                          <b>Si </b
+                          ><span
+                            ><b class="blue-b">Find</b>(u) ≠
+                            <b class="blue-b">Find</b>(v) </span
+                          ><b>Entonces</b>
+                        </li>
                         <ul>
-                          <li><span>conjunto_aristas:= conjunto_aristas ∪ {(nodo_2, nodo)}</span></li>
-                          <li><span><b class="blue-b">Union</b>(<b class="blue-b">Find</b>(nodo_2), <b class="blue-b">Find</b>(nodo))</span></li>
+                          <li>
+                            <span
+                              >conjunto_aristas:= conjunto_aristas ∪ {(nodo_2,
+                              nodo)}</span
+                            >
+                          </li>
+                          <li>
+                            <span
+                              ><b class="blue-b">Union</b>(<b class="blue-b"
+                                >Find</b
+                              >(nodo_2), <b class="blue-b">Find</b>(nodo))</span
+                            >
+                          </li>
                         </ul>
                       </ul>
-                    </li>
-                    <li><b>return </b><span>conjunto_aristas</span></li>
                     </ul>
-                  </li>
-                  </li>
+                    <ul>
+                      <li><b>return </b><span>conjunto_aristas</span></li>
+                    </ul>
+                  </ul>
                 </ul>
                 <!-- ./Pseudocode -->
               </div>
-
+                <!-- Algorithm: Complexity -->
+                <div class="slides">
+                  <h3>Complejidad</h3>
+                  <hr />
+                  <ul>
+                    <li>
+                      <b>Ordernar aristas</b><br>
+                      <span>Para el ordenamiento de las aristas.</span><br>
+                      <img src="./src/img/icon/mlogm.svg" alt="Complejidad mlogm">
+                    </li>
+                    <li>
+                      <b>unionFind</b><br>
+                      <span>Inversa de Ackerman</span><br>
+                      <img src="./src/img/icon/an.svg" alt="Inversa de Ackerman">
+                    </li>
+                    <li>
+                      <span>Llamadas a unionFind()</span><br>
+                      <img src="./src/img/icon/man.svg" alt="Complejidad Union Find">
+                    </li>
+                    <li>
+                      <b>Complejidad <span class="blue-l">Kruskal</span></b><br>
+                      <img src="./src/img/icon/kruskal.svg" alt="Complejidad mlogm">
+                    </li>
+                  </ul>
+                </div>
               <!-- Middlebutton -->
               <div class="middlebutton" style="width: 100%">
                 <div class="slide_left" onclick="plusDivs(-1)">&#10094;</div>
@@ -216,6 +266,10 @@
                   class="dots_slide point dot-transparent hover-white"
                   onclick="currentDiv(4)"
                 ></span>
+                <span
+                  class="dots_slide point dot-transparent hover-white"
+                  onclick="currentDiv(5)"
+                ></span>
               </div>
               <!-- ./Middlebutton -->
             </div>
@@ -223,40 +277,47 @@
           </div>
           <!-- Algorithm steps -->
 
-          <!-- Demonstration Steps -->
-          <div id="Demostración" class="tabcontent">
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Consequatur dicta vel voluptates vero quae id veniam expedita,
-              ullam optio deserunt commodi iste neque quo. Nobis sequi
-              reprehenderit saepe dolore mollitia?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Consequatur dicta vel voluptates vero quae id veniam expedita,
-              ullam optio deserunt commodi iste neque quo. Nobis sequi
-              reprehenderit saepe dolore mollitia?
-            </p>
+          <!-- Demostration Steps -->
+          <div
+            id="Demostration"
+            class="tabcontent demostration-container"
+            style="max-width: 100%"
+          >
+            <div class="demostration-algorithm">
+              <!-- Demo: Algorithm -->
+              <ol id="demo-algorithm"></ol>
+            </div>
+            <div class="demostration-complexity">
+              <!-- Demo: Complexity -->
+              <ol id="demo-complexity"></ol>
+            </div>
+            <div class="desmostration-weight">
+              <h4 id="weightF"></h4>
+            </div>
           </div>
           <!-- Input text -->
           <div id="Entrada" class="tabcontent">
             <!-- Plain text -->
-            <form action="">
-              <div class="form-container">
-                <h3>Texto plano</h3>
-                <textarea
-                  cols="9"
-                  rows="15"
-                  placeholder="
-                    Número_nodos  Número_aristas
-                    Nodo_origen  Nodo_destino  Peso"
-                  name="plain-text"
-                  id="plain-text"
-                ></textarea>
-                <button class="button_in" type="submit">Calcular</button>
-                <!-- ./Plain text -->
+            <div class="input-container">
+              <h3>Texto plano</h3>
+              <textarea
+                cols="9"
+                rows="10"
+                placeholder="
+                  Número_nodos  Número_aristas
+                  Nodo_origen  Nodo_destino  Peso"
+                name="in-plain-text"
+                id="in-plain-text"
+              ></textarea>
+              <div>
+                <h4 style="color: #001b48; text-align: center">
+                  Peso total:
+                  <span id="total-weight" style="font-weight: 400"></span>
+                </h4>
               </div>
-            </form>
+              <button id="button_in" type="submit">Calcular</button>
+              <!-- ./Plain text -->
+            </div>
           </div>
           <!-- Tutorial Steps -->
           <div id="Manual" class="tabcontent">
@@ -360,6 +421,38 @@
                   </li>
                 </ul>
               </div>
+              <!-- Tutorial: Plain Text -->
+              <div class="slides_2 plain-text">
+                <h3>Texto plano</h3>
+                <hr />
+                <ul>
+                  <li>
+                    <p>
+                      <b>Descripción</b><br />
+                      Permite calcular el peso del árbol de expansión mínimo, a
+                      través de una entrada de texto plano.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <b>Límites</b><br />
+                      <img
+                        src="./src/img/icon/limits.svg"
+                        alt="limits"
+                        style="padding-top: 0.5em"
+                      />
+                    </p>
+                  </li>
+                  <li>
+                    <p><b>Ejemplo</b><br /></p>
+                    <div class="plaint-text__container">
+                      <b>Entrada</b><br />4 5<br />1 2 10<br />2 3 15<br />1 3
+                      5<br />4 2 2 <br />4 3 40 <br /><br />
+                      <b>Salida</b><br />17
+                    </div>
+                  </li>
+                </ul>
+              </div>
               <!-- middlebutton_2 -->
               <div class="middlebutton" style="width: 100%">
                 <div class="slide_left" onclick="plusDivs_2(-1)">&#10094;</div>
@@ -376,6 +469,10 @@
                   class="dots_slide point_2 dot-transparent hover-white"
                   onclick="currentDiv_2(3)"
                 ></span>
+                <span
+                  class="dots_slide point_2 dot-transparent hover-white"
+                  onclick="currentDiv_2(4)"
+                ></span>
               </div>
               <!-- ./middlebutton -->
             </div>
@@ -390,27 +487,36 @@
         <!-- Graph Visualizer -->
         <div class="graph-section__visualizer" id="chart">
           <div id="toolbox">
-            <input type="file" id="hidden-file-upload" /><input
-              id="upload-input"
-              type="image"
-              title="Subir grafo"
-              src="./src/img/icon/cloud-download.svg"
-              alt="Subir grafo"
-            />
-            <input
-              type="image"
-              id="download-input"
-              title="Descargar grafo"
-              src="./src/img/icon/box-arrow-in-down.svg"
-              alt="Descargar grafo"
-            />
-            <input
-              type="image"
-              id="delete-graph"
-              title="Eliminar grafo"
-              src="./src/img/icon/trash.svg"
-              alt="Eliminar grafo"
-            />
+            <div class="tooltip">
+              <input type="file" id="hidden-file-upload" /><input
+                id="upload-input"
+                type="image"
+                title="Subir grafo"
+                src="./src/img/icon/cloud-download.svg"
+                alt="Subir grafo"
+              />
+              <span class="tooltip-text">Subir</span>
+            </div>
+            <div class="tooltip">
+              <input
+                type="image"
+                id="download-input"
+                title="Descargar grafo"
+                src="./src/img/icon/box-arrow-in-down.svg"
+                alt="Descargar grafo"
+              />
+              <span class="tooltip-text">Descargar</span>
+            </div>
+            <div class="tooltip">
+              <input
+                type="image"
+                id="delete-graph"
+                title="Eliminar grafo"
+                src="./src/img/icon/trash.svg"
+                alt="Eliminar grafo"
+              />
+              <span class="tooltip-text">Eliminar</span>
+            </div>
           </div>
         </div>
         <!-- Graph Menu -->

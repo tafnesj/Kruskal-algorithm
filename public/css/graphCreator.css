@@ -66,13 +66,13 @@ g.conceptG text {
 .no-selected-node circle,
 g.conceptG circle {
   fill: var(--regal-blue);
-  stroke-width: 0.15em;
+  stroke-width: 0.2em;
   stroke: hsla(0, 0%, 100%, 0.325);
 }
 g.selected circle,
 g.conceptG:hover circle {
   fill: var(--bondi-blue);
-  stroke-width: 0.15em;
+  stroke-width: 0.2em;
   stroke: hsla(0, 0%, 100%, 0.325);
 }
 .no-selected-edges {
@@ -83,12 +83,12 @@ g.conceptG:hover circle {
 /* Selected nodes/edfes */
 .selected_node.node_fill {
   fill: var(--stratos);
-  stroke-width: 0.15em;
+  stroke-width: 0.2em;
   stroke: hsla(0, 0%, 100%, 0.325);
 }
 .selected_node.node_fill:hover {
   fill: var(--bondi-blue);
-  stroke-width: 0.15em;
+  stroke-width: 0.2em;
   stroke: hsla(0, 0%, 100%, 0.325);
 }
 .selected-edge {
@@ -99,8 +99,8 @@ g.conceptG:hover circle {
 /* Final edges */
 .final-edge {
   stroke-width: 0.35em;
-  stroke: hsla(0, 0%, 100%, 0.825);
-  stroke: rgb(255, 230, 0);
+  stroke: var(--morning-glory);
+  /* stroke: rgb(255, 230,  0); */
 }
 
 /* Edges hidden */
@@ -110,4 +110,8 @@ path.selected {
 }
 path.link.hidden {
   stroke-width: 0;
+}
+path.link {
+  stroke: hsla(0, 0%, 100%, 0.325);
+  stroke-width: 0.2em;
 }
