@@ -272,9 +272,6 @@ b.blue-l {
   overflow: auto;
   max-height: 60vh;
 }
-.demostration-algorithm b {
-  color: var(--morning-glory);
-}
 #weightF span {
   font-weight: 500;
 }

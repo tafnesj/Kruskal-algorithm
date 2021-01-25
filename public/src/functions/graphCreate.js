@@ -215,24 +215,23 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     let aux = input_text.split("\n");
     let num_nodes = 0;
     let num_edges = 0;
-
-    for (let i = 0; i < aux.length; i++) {
-      aux[i].split(" ");
-      num_nodes = parseInt(aux[0]);
-      num_edges = parseInt(aux[1]);
-      if (i > 1) {
-
-      }
-      console.log(aux[i])
-    }
-    c
-
-    let to = 0, from = 0, weight = 0;
-    let total_weight = 0;
     let edges = [];
 
+    for (let i = 0; i < aux.length; i++) {
+      let aux2 = aux[i].split(" ");
+      num_nodes = parseInt(aux2[0]);
+      num_edges = parseInt(aux2[1]);
+      if (i >= 1) {
+        let to = parseInt(aux2[0]);
+        let from = parseInt(aux2[1]);
+        let weight = parseInt(aux2[2]);
+        to--; from--;
+        edges.push({to:to,from:from,weight:weight});
+      }
+    }
+
     document.getElementById("total-weight").innerHTML = input_text;
-    console.log(aux)
+    console.log(edges)
 
   }
 
@@ -347,11 +346,11 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
           changes.splice(changes.indexOf(edge), 1);
           edge_final = edge;
           let textAlgo = document.getElementById("demo-algorithm");
-          textAlgo.insertAdjacentHTML("beforeend", "<ul><li>Arista <b>aceptada</b>.</li></ol>");
+          textAlgo.insertAdjacentHTML("beforeend", `<li>Arista <b style="color: #0bd4c4">aceptada</b>.</li>`);
           totalWeight += EdgesCopy[i].weight;
         } else {
           let textAlgo = document.getElementById("demo-algorithm");
-          textAlgo.insertAdjacentHTML("beforeend", "<ul><li>Arista <b>descartada</b>.</li></ol>");
+          textAlgo.insertAdjacentHTML("beforeend", `<li>Arista <b style="text-decoration:line-through">descartada</b>.</li>`);
         }
         i++;                    //  increment the counter
         if (i < EdgesCopy.length) {   //  if the counter < 10, call the loop function
