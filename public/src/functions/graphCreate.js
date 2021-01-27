@@ -218,33 +218,40 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
     for (let i = 0; i < aux.length; i++) {
       let aux2 = aux[i].split(" ");
-      num_nodes = parseInt(aux2[0]);
-      num_edges = parseInt(aux2[1]);
+      if (i==0) {
+        num_nodes = parseInt(aux2[0]);
+        num_edges = parseInt(aux2[1]);
+      }
       if (i >= 1) {
         let to = parseInt(aux2[0]);
         let from = parseInt(aux2[1]);
         let weight = parseInt(aux2[2]);
         to--; from--;
-        edges.push({to:to,from:from,weight:weight});
+        edges.push({ to: to, from: from, weight: weight });
       }
     }
+    // console.log(num_nodes)
+    // console.log(num_edges)
+    // console.log(edges);
     let parent = new Array(parseInt(num_nodes));
+    // console.log(num_nodes);
     let sz = new Array(parseInt(num_nodes));
-    for(let i = 0;i<num_nodes;i++){
+    for (let i = 0; i < num_nodes; i++) {
       parent[i] = i;
       sz[i] = 1;
     }
 
-    function represent(i){
+    function represent(i) {
       if (parent[i] == i) {
         return i;
       } else {
         return parent[i] = represent(parent[i]);
       }
     }
-    function UnionBySize(u,v){
+    function UnionBySize(u, v) {
       u = represent(u);
       v = represent(v);
+      // console.log(u,v);
       if (u == v) {
         // Can't join because they're in the same component
         return false;
@@ -258,18 +265,25 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         // Change size of the component
         sz[u] += sz[v];
       }
+      // console.log(u,v);
       // Can join
       return true;
     }
+
     let totalWeight = 0;
     edges.sort((A, B) => { return A.weight - B.weight; });
-    for(let i = 0;i<edges.length;i++){
-      let u = edges[i].from,v = edges[i].to;
-      if(UnionBySize(u,v))
-        totalWeight+= edges[i].weight;
+    for (let i = 0; i < edges.length; i++) {
+      // console.log(parent)
+      let u = edges[i].from, v = edges[i].to;
+      if (UnionBySize(u, v)) {
+        totalWeight += edges[i].weight;
+        // console.log(parent)
+        // console.log(totalWeight);
+      }
     }
     document.getElementById("total-weight").innerHTML = totalWeight;
-    console.log(edges)
+    // console.log(totalWeight);
+    // console.log(edges)
   }
 
   // Search main parent: return represent
