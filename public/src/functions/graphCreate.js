@@ -210,7 +210,6 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
   // Plain text - Minweight
   GraphCreator.prototype.weightMin = function () {
     var thisGraph = this;
-
     let input_text = document.getElementById("in-plain-text").value;
     let aux = input_text.split("\n");
     let num_nodes = 0;
@@ -226,17 +225,50 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         let from = parseInt(aux2[1]);
         let weight = parseInt(aux2[2]);
         to--; from--;
-        edges.push({to:to,from:from,weight:weight});
+        edges.push({ to: to, from: from, weight: weight });
       }
     }
+    let parent = new Array(parseInt(num_nodes));
+    let sz = new Array(parseInt(num_nodes));
+    for (let i = 0; i < num_nodes; i++) {
+      parent[i] = i;
+      sz[i] = 1;
+    }
 
+    function represent(i) {
+      if (parent[i] == i) {
+        return i;
+      } else {
+        return parent[i] = represent(parent[i]);
+      }
+    }
+    function UnionBySize(u, v) {
+      u = represent(u);
+      v = represent(v);
+      if (u == v) {
+        // Can't join because they're in the same component
+        return false;
+      } else {
+        if (sz[u] < sz[v]) {
+          // "U" always are the most high value
+          [u, v] = [v, u];
+        }
+        // New represent
+        parent[v] = u;
+        // Change size of the component
+        sz[u] += sz[v];
+      }
+      // Can join
+      return true;
+    }
+    let totalWeight = 0;
     edges.sort((A, B) => { return A.weight - B.weight; });
-
-    
-  //   edges.sort(order);
-
-
-    document.getElementById("total-weight").innerHTML = input_text;
+    for (let i = 0; i < edges.length; i++) {
+      let u = edges[i].from, v = edges[i].to;
+      if (UnionBySize(u, v))
+        totalWeight += edges[i].weight;
+    }
+    document.getElementById("total-weight").innerHTML = totalWeight;
     console.log(edges)
   }
 
