@@ -225,24 +225,24 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         let from = parseInt(aux2[1]);
         let weight = parseInt(aux2[2]);
         to--; from--;
-        edges.push({ to: to, from: from, weight: weight });
+        edges.push({to:to,from:from,weight:weight});
       }
     }
     let parent = new Array(parseInt(num_nodes));
     let sz = new Array(parseInt(num_nodes));
-    for (let i = 0; i < num_nodes; i++) {
+    for(let i = 0;i<num_nodes;i++){
       parent[i] = i;
       sz[i] = 1;
     }
 
-    function represent(i) {
+    function represent(i){
       if (parent[i] == i) {
         return i;
       } else {
         return parent[i] = represent(parent[i]);
       }
     }
-    function UnionBySize(u, v) {
+    function UnionBySize(u,v){
       u = represent(u);
       v = represent(v);
       if (u == v) {
@@ -263,10 +263,10 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     }
     let totalWeight = 0;
     edges.sort((A, B) => { return A.weight - B.weight; });
-    for (let i = 0; i < edges.length; i++) {
-      let u = edges[i].from, v = edges[i].to;
-      if (UnionBySize(u, v))
-        totalWeight += edges[i].weight;
+    for(let i = 0;i<edges.length;i++){
+      let u = edges[i].from,v = edges[i].to;
+      if(UnionBySize(u,v))
+        totalWeight+= edges[i].weight;
     }
     document.getElementById("total-weight").innerHTML = totalWeight;
     console.log(edges)
