@@ -59,7 +59,7 @@ g.conceptG text {
 .selected-edge:hover,
 .no-selected-edges:hover,
 .final-edge:hover {
-  stroke: var(--morning-glory);
+  stroke: hsla(0, 0%, 100%, 0.725);
 }
 
 /* No Selected nodes/edges */
@@ -99,14 +99,14 @@ g.conceptG:hover circle {
 /* Final edges */
 .final-edge {
   stroke-width: 0.35em;
-  stroke: #0bd4c4;
+  stroke: var(--morning-glory);
   /* stroke: rgb(255, 230,  0); */
 }
 
 /* Edges hidden */
 path.link:hover,
 path.selected {
-  stroke: var(--morning-glory);
+  stroke: hsla(0, 0%, 100%, 0.725);
 }
 path.link.hidden {
   stroke-width: 0;

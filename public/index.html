@@ -16,6 +16,13 @@
       integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
       crossorigin="anonymous"
     ></script>
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
     <!-- Tittle -->
     <title>Algoritmo de Kruskal</title>
   </head>
@@ -106,7 +113,7 @@
               </div>
               <!-- Algorithm: Union-Find -->
               <div class="slides">
-                <h3>Algoritmo Union Find</h3>
+                <h3>Estructura Union Find</h3>
                 <hr />
                 <p style="padding-top: 0.6em">
                   Kruskal hace uso de este algoritmo, ya que realiza dos
@@ -170,82 +177,65 @@
                 <ul class="pseudocode">
                   <ul>
                     <li><b>Algoritmo </b><span>kruskal(grafo):</span></li>
-                    <li><span>conjunto_aristas=0</span></li>
                     <ul>
+                      <li><span>conjunto_aristas={}</span></li>
                       <li>
-                        <b>For each </b
-                        ><span>nodo ∈ grafo.conjunto_nodos:</span>
+                        <b>Ordenar </b
+                        ><span>por peso(grafo.aristas) ascendentemente </span>
                       </li>
-                    </ul>
-                    <ul>
                       <li>
-                        <b>For each </b
-                        ><span>(nodo_2,nodo) en grafo.arista</span>
-                      </li>
-                      <ul>
-                        <li>
-                          <b>Ordenar </b
-                          ><span
-                            >por peso(nodo_2, nodo), incremental
-                            <b>Hacer</b></span
-                          >
-                        </li>
-                        <li>
-                          <b>Si </b
-                          ><span
-                            ><b class="blue-b">Find</b>(u) ≠
-                            <b class="blue-b">Find</b>(v) </span
-                          ><b>Entonces</b>
-                        </li>
+                        <b>For each </b><span>(u,v) ∈ grafo.aristas</span>
                         <ul>
                           <li>
-                            <span
-                              >conjunto_aristas:= conjunto_aristas ∪ {(nodo_2,
-                              nodo)}</span
-                            >
+                            <b>Si </b
+                            ><span
+                              ><b class="blue-b">Find</b>(u) ≠
+                              <b class="blue-b">Find</b>(v) </span
+                            ><b>Entonces</b>
                           </li>
-                          <li>
-                            <span
-                              ><b class="blue-b">Union</b>(<b class="blue-b"
-                                >Find</b
-                              >(nodo_2), <b class="blue-b">Find</b>(nodo))</span
-                            >
-                          </li>
+                          <li></li>
+                          <ul>
+                            <li>
+                              <span><b class="blue-b">Union</b>(u,v)</span>
+                            </li>
+                            <li>
+                              <span
+                                >conjunto_aristas:= conjunto_aristas ∪ {(u,
+                                v)}</span
+                              >
+                            </li>
+                          </ul>
                         </ul>
-                      </ul>
-                    </ul>
-                    <ul>
-                      <li><b>return </b><span>conjunto_aristas</span></li>
+                      </li>
+                      <li><b>return </b><span>conjunto_aristas;</span></li>
                     </ul>
                   </ul>
                 </ul>
                 <!-- ./Pseudocode -->
               </div>
-                <!-- Algorithm: Complexity -->
-                <div class="slides">
-                  <h3>Complejidad</h3>
-                  <hr />
-                  <ul>
-                    <li>
-                      <b>Ordernar aristas</b><br>
-                      <span>Para el ordenamiento de las aristas.</span><br>
-                      <img src="./src/img/icon/mlogm.svg" alt="Complejidad mlogm">
-                    </li>
-                    <li>
-                      <b>unionFind</b><br>
-                      <span>Inversa de Ackerman</span><br>
-                      <img src="./src/img/icon/an.svg" alt="Inversa de Ackerman">
-                    </li>
-                    <li>
-                      <span>Llamadas a unionFind()</span><br>
-                      <img src="./src/img/icon/man.svg" alt="Complejidad Union Find">
-                    </li>
-                    <li>
-                      <b>Complejidad <span class="blue-l">Kruskal</span></b><br>
-                      <img src="./src/img/icon/kruskal.svg" alt="Complejidad mlogm">
-                    </li>
-                  </ul>
-                </div>
+              <!-- Algorithm: Complexity -->
+              <div class="slides">
+                <h3>Complejidad</h3>
+                <hr />
+                <ul class="complexity-slide">
+                  <li>
+                    <b>Ordernar aristas</b><br />
+                    <span>Para el ordenamiento de las aristas.</span>
+                    <p>$$O(mlog(m))$$</p>
+                  </li>
+                  <li>
+                    <b>unionFind</b><br />
+                    <span>Inversa de Ackerman</span>
+                    <p>$$O(a(n))$$</p>
+                    <span>Llamadas a unionFind()</span>
+                    <p>$$O(m*a(n))$$</p>
+                  </li>
+                  <li>
+                    <b>Complejidad <span class="blue-l">Kruskal</span></b>
+                    <p>$$O(mlog(m) + m*a(n))$$</p>
+                  </li>
+                </ul>
+              </div>
               <!-- Middlebutton -->
               <div class="middlebutton" style="width: 100%">
                 <div class="slide_left" onclick="plusDivs(-1)">&#10094;</div>
@@ -280,19 +270,21 @@
           <!-- Demostration Steps -->
           <div
             id="Demostration"
-            class="tabcontent demostration-container"
+            class="tabcontent demostration"
             style="max-width: 100%"
           >
-            <div class="demostration-algorithm">
-              <!-- Demo: Algorithm -->
-              <ol id="demo-algorithm"></ol>
-            </div>
-            <div class="demostration-complexity">
-              <!-- Demo: Complexity -->
-              <ol id="demo-complexity"></ol>
-            </div>
-            <div class="desmostration-weight">
-              <h4 id="weightF"></h4>
+            <div class="demostration-container">
+              <div class="demostration-algorithm">
+                <!-- Demo: Algorithm -->
+                <ol id="demo-algorithm"></ol>
+              </div>
+              <div class="demostration-complexity">
+                <!-- Demo: Complexity -->
+                <ol id="demo-complexity"></ol>
+              </div>
+              <div class="desmostration-weight">
+                <h4 id="weightF"></h4>
+              </div>
             </div>
           </div>
           <!-- Input text -->
@@ -303,9 +295,6 @@
               <textarea
                 cols="9"
                 rows="10"
-                placeholder="
-                  Número_nodos  Número_aristas
-                  Nodo_origen  Nodo_destino  Peso"
                 name="in-plain-text"
                 id="in-plain-text"
               ></textarea>
@@ -487,7 +476,7 @@
         <!-- Graph Visualizer -->
         <div class="graph-section__visualizer" id="chart">
           <div id="toolbox">
-            <div class="tooltip">
+            <div class="tooltip-2">
               <input type="file" id="hidden-file-upload" /><input
                 id="upload-input"
                 type="image"
@@ -497,7 +486,7 @@
               />
               <span class="tooltip-text">Subir</span>
             </div>
-            <div class="tooltip">
+            <div class="tooltip-2">
               <input
                 type="image"
                 id="download-input"
@@ -507,7 +496,7 @@
               />
               <span class="tooltip-text">Descargar</span>
             </div>
-            <div class="tooltip">
+            <div class="tooltip-2">
               <input
                 type="image"
                 id="delete-graph"
@@ -642,6 +631,10 @@
         x_2[slideIndex_2 - 1].style.display = "block";
         dots_2[slideIndex_2 - 1].className += " dot-white";
       }
+
+      // Placeholder text
+      document.getElementById("in-plain-text").placeholder =
+        "Número_nodos  Número_aristas Nodo_origen  Nodo_destino  Peso";
     </script>
   </body>
 </html>

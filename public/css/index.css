@@ -64,6 +64,11 @@ body {
   color: var(--white);
 }
 
+/* MathJax */
+.MathJax {
+  text-align: left !important;
+}
+
 /* Navbar Image */
 .navbar-image {
   background-color: var(--white);
@@ -185,11 +190,13 @@ body {
 }
 
 /* Tootips */
-.tooltip {
+.tooltip,
+.tooltip-2 {
   position: relative;
   display: inline-block;
 }
-.tooltip .tooltip-text {
+.tooltip .tooltip-text,
+.tooltip-2 .tooltip-text {
   visibility: hidden;
   width: 6em;
   background-color: var(--bondi-blue);
@@ -199,9 +206,17 @@ body {
   padding: 0.3em 0;
   position: absolute;
   z-index: 1;
+}
+.tooltip .tooltip-text {
   top: 0.25em;
   right: 100%;
   opacity: 0;
+  transition: opacity 0.5s;
+}
+.tooltip-2 .tooltip-text {
+  top: 150%;
+  left: 50%;
+  margin-left: -50px;
   transition: opacity 0.5s;
 }
 .tooltip .tooltip-text::after {
@@ -214,6 +229,17 @@ body {
   border-style: solid;
   border-color: transparent transparent transparent var(--bondi-blue);
 }
+.tooltip-2 .tooltip-text::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent var(--bondi-blue) transparent;
+}
+.tooltip-2:hover .tooltip-text,
 .tooltip:hover .tooltip-text {
   visibility: visible;
   opacity: 1;

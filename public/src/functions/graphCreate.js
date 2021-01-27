@@ -208,32 +208,38 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
   /*** Kruskal Functions ***/
 
   // Plain text 
-  GraphCreator.prototype.weightMin = function () {
-    var thisGraph = this;
-
-    let input_text = document.getElementById("in-plain-text").value;
-    let aux = input_text.split("\n");
-    let num_nodes = 0;
-    let num_edges = 0;
-    let edges = [];
-
-    for (let i = 0; i < aux.length; i++) {
-      let aux2 = aux[i].split(" ");
-      num_nodes = parseInt(aux2[0]);
-      num_edges = parseInt(aux2[1]);
-      if (i >= 1) {
-        let to = parseInt(aux2[0]);
-        let from = parseInt(aux2[1]);
-        let weight = parseInt(aux2[2]);
-        to--; from--;
-        edges.push({to:to,from:from,weight:weight});
-      }
-    }
-
-    document.getElementById("total-weight").innerHTML = input_text;
-    console.log(edges)
-
+  GraphCreator.prototype.order(A, B) = function() {
+    return A.weight-B.weight;
   }
+
+  // GraphCreator.prototype.weightMin = function () {
+  //   var thisGraph = this;
+
+  //   let input_text = document.getElementById("in-plain-text").value;
+  //   let aux = input_text.split("\n");
+  //   let num_nodes = 0;
+  //   let num_edges = 0;
+  //   let edges = [];
+
+  //   for (let i = 0; i < aux.length; i++) {
+  //     let aux2 = aux[i].split(" ");
+  //     num_nodes = parseInt(aux2[0]);
+  //     num_edges = parseInt(aux2[1]);
+  //     if (i >= 1) {
+  //       let to = parseInt(aux2[0]);
+  //       let from = parseInt(aux2[1]);
+  //       let weight = parseInt(aux2[2]);
+  //       to--; from--;
+  //       edges.push({to:to,from:from,weight:weight});
+  //     }
+  //   }
+    
+  //   edges.sort(order);
+
+
+  //   document.getElementById("total-weight").innerHTML = input_text;
+  //   console.log(edges)
+  // }
 
   // Search main parent: return represent
   GraphCreator.prototype.represent = function (i) {
@@ -306,7 +312,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         let textComp = document.getElementById("demo-complexity");
 
         textAlgo.insertAdjacentHTML("beforeend", `<li>Procesando arista ${EdgesCopy[i].source.id} - ${EdgesCopy[i].target.id}.</li>`);
-        textComp.insertAdjacentHTML("beforeend", "<li>O(log<sup>*</sup>(n))</li>");
+        textComp.insertAdjacentHTML("beforeend", `<li>O(a(n))</li><li>O(m*a(n))</li>`);
 
         for (let j = 0; j < changes.length; j++) {
           console.log(changes[j], changes[j].tagName);
@@ -346,7 +352,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
           changes.splice(changes.indexOf(edge), 1);
           edge_final = edge;
           let textAlgo = document.getElementById("demo-algorithm");
-          textAlgo.insertAdjacentHTML("beforeend", `<li>Arista <b style="color: #0bd4c4">aceptada</b>.</li>`);
+          textAlgo.insertAdjacentHTML("beforeend", `<li>Arista <b style="color: #97cadb">aceptada</b>.</li>`);
           totalWeight += EdgesCopy[i].weight;
         } else {
           let textAlgo = document.getElementById("demo-algorithm");
@@ -359,7 +365,6 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         else {
           console.log(changes);
           let textAlgo = document.getElementById("weightF");
-          textAlgo.insertAdjacentHTML("beforebegin", `<span>Complejidad Kruskal:</span><br><img src="./src/img/icon/krusdemo.svg" alt="Complajidad Kruskal">`);
           textAlgo.insertAdjacentHTML("beforeend", `Peso mínimo total: <span>${totalWeight}</span>`);
 
           for (let j = 0; j < changes.length; j++) {
@@ -1058,6 +1063,10 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
   };
 
   /**** Main ****/
+  window.onbeforeunload = function(){
+    return "Los cambios no se guardarán al salir.";
+  }; 
+
   var docEl = document.documentElement,
     bodyEl = document.getElementsByTagName("body")[0];
 

@@ -239,10 +239,10 @@ b.blue-l {
 }
 .pseudocode-container ul {
   list-style-type: none;
-  padding-left: 1.5em;
+  padding-left: 0.5em;
 }
-.pseudocode-container p {
-  font-size: 0.85em;
+.pseudocode-container ul li {
+  padding-left: 0.9em;
 }
 
 /* Plain text */
@@ -267,10 +267,23 @@ b.blue-l {
 
 /* Demostration */
 .demostration-container {
-  display: grid;
-  grid: 100%;
+  display: flex !important;
   overflow: auto;
+  flex-wrap: wrap;
   max-height: 60vh;
+}
+.demo-algorithm {
+  flex: 55%;
+}
+.demostration-complexity {
+  flex: 45%;
+}
+.desmostration-weight {
+  flex: 100%;
+}
+.complexity-slide li p{
+  margin-top: -1em;
+  color: #02457a;
 }
 #weightF span {
   font-weight: 500;
