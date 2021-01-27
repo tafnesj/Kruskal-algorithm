@@ -3,6 +3,7 @@
 ..................................*/
 'use strict';
 
+// Read functions
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -24,6 +25,7 @@ function readline() {
     return inputString[currentLine++];
 }
 
+// Auxiliar function for Sort by weight
 function order(A, B) {
   return A.weight-B.weight;
 }
@@ -43,6 +45,7 @@ function main(){
 
   let edges = [];
 
+  // Split the values 
   for(let i=0; i<num_edges; i++){
     aux_read = (readline().split(' '));
     let to = parseInt(aux_read[0]);
@@ -54,6 +57,7 @@ function main(){
     edges.push({to:to,from:from,weight:weight});
   }
 
+  // Sort with auxiliar sort function
   edges.sort(order);
   // console.log(edges);
 

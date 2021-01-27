@@ -207,39 +207,38 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
   /*** Kruskal Functions ***/
 
-  // Plain text 
-  GraphCreator.prototype.order(A, B) = function() {
-    return A.weight-B.weight;
-  }
+  // Plain text - Minweight
+  GraphCreator.prototype.weightMin = function () {
+    var thisGraph = this;
 
-  // GraphCreator.prototype.weightMin = function () {
-  //   var thisGraph = this;
+    let input_text = document.getElementById("in-plain-text").value;
+    let aux = input_text.split("\n");
+    let num_nodes = 0;
+    let num_edges = 0;
+    let edges = [];
 
-  //   let input_text = document.getElementById("in-plain-text").value;
-  //   let aux = input_text.split("\n");
-  //   let num_nodes = 0;
-  //   let num_edges = 0;
-  //   let edges = [];
+    for (let i = 0; i < aux.length; i++) {
+      let aux2 = aux[i].split(" ");
+      num_nodes = parseInt(aux2[0]);
+      num_edges = parseInt(aux2[1]);
+      if (i >= 1) {
+        let to = parseInt(aux2[0]);
+        let from = parseInt(aux2[1]);
+        let weight = parseInt(aux2[2]);
+        to--; from--;
+        edges.push({to:to,from:from,weight:weight});
+      }
+    }
 
-  //   for (let i = 0; i < aux.length; i++) {
-  //     let aux2 = aux[i].split(" ");
-  //     num_nodes = parseInt(aux2[0]);
-  //     num_edges = parseInt(aux2[1]);
-  //     if (i >= 1) {
-  //       let to = parseInt(aux2[0]);
-  //       let from = parseInt(aux2[1]);
-  //       let weight = parseInt(aux2[2]);
-  //       to--; from--;
-  //       edges.push({to:to,from:from,weight:weight});
-  //     }
-  //   }
+    edges.sort((A, B) => { return A.weight - B.weight; });
+
     
   //   edges.sort(order);
 
 
-  //   document.getElementById("total-weight").innerHTML = input_text;
-  //   console.log(edges)
-  // }
+    document.getElementById("total-weight").innerHTML = input_text;
+    console.log(edges)
+  }
 
   // Search main parent: return represent
   GraphCreator.prototype.represent = function (i) {
@@ -1063,9 +1062,9 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
   };
 
   /**** Main ****/
-  window.onbeforeunload = function(){
+  window.onbeforeunload = function () {
     return "Los cambios no se guardarán al salir.";
-  }; 
+  };
 
   var docEl = document.documentElement,
     bodyEl = document.getElementsByTagName("body")[0];
